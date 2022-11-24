@@ -92,5 +92,12 @@ def east_process(img):
 
 
 if __name__ == "__main__":
-    img = cv2.imread("zbar.png")
+    img = cv2.imread("img_4.png")
     text_area = east_process(img)
+
+    for area in text_area:
+        p1, p2 = area
+        cv2.rectangle(img, p1, p2, (255, 0, 0), 2)
+
+    cv2.imshow('img', img)
+    cv2.waitKey(0)
