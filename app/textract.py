@@ -4,6 +4,14 @@ import re
 import boto3
 
 
+class NoDateInImageException(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __str__(self):
+        return self.msg
+
+
 def process_text_detection(bucket, document):
     client = boto3.client('textract')
 
@@ -52,6 +60,9 @@ def get_date_from_image(image):
     bucket = 'naeng-bu-test'
     line_result = process_text_detection(bucket, image)
     date_list = text_to_date(line_result)
+
+    if len(date_list) == 0:
+        raise NoDateInImageException("No Detected Date In Image")
 
     return date_list[0]
 
