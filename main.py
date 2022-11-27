@@ -6,7 +6,7 @@ from app.textract import get_date_from_image, NoDateInImageException
 app = FastAPI()
 
 
-@app.get("health-check", status_code=200)
+@app.get("/ocr/health-check", status_code=200)
 async def health_check():
     return {"status": "success"}
 
